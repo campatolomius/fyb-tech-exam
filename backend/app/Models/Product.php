@@ -1,0 +1,21 @@
+<?php
+
+namespace App\Models;
+
+use Illuminate\Database\Eloquent\Model;
+
+class Product extends Model
+{
+    protected $fillable = [
+        'user_id',
+        'sku_code',
+        'sku_desc',
+        'sku_uom',
+        'sku_price',
+    ];
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
+}
