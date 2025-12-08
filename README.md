@@ -1,72 +1,42 @@
-# FYB Fullstack Application
+# FYB Exam - Product Management UI and API's
 
-This is a fullstack application with a Laravel backend and a Vue.js frontend. The database used is SQLite.
+A full-stack web application built with Laravel (API backend) and Vue.js (SPA frontend).
+
+The app uses Docker for containerized development and SQLite as the database.
 
 ## Getting Started
 
-Follow these steps to get the application up and running.
-
-### 1. Run the Backend (Laravel)
-
-Navigate to the `backend` directory and install the PHP dependencies:
+### 1. Clone the Repository
 
 ```bash
-cd backend
-composer install
+git clone https://github.com/cyrusmanatad/fyb-tech-exam.git
+
+cd fyb-tech-exam
 ```
 
-Copy the example environment file and generate an application key:
+### 2. Running the Application (Laravel + Vue.js)
+
+Ensure Docker is installed and running on your machine.
+
+Then initialize the project:
 
 ```bash
-cp .env.example .env
-php artisan key:generate
+./init.sh
 ```
 
-Generate the JWT secret key:
+### This script will:
 
-```bash
-php artisan jwt:secret
-```
+- Build and start the Docker containers
+- Install backend and frontend dependencies
+- Run migrations
+- Compile frontend assets
+- Once finished, the application will be available at: `http://localhost:8000`
 
-Since we are using SQLite, make sure your `.env` file has the following database configuration:
+### Tech Stack
 
-```
-DB_CONNECTION=sqlite
-```
-
-Create an empty `database.sqlite` file in the `database` directory:
-
-```bash
-touch database/database.sqlite
-```
-
-Run the database migrations and seed the database (optional):
-
-```bash
-php artisan migrate --seed
-```
-
-Finally, start the Laravel development server:
-
-```bash
-php artisan serve
-```
-
-The backend will typically run on `http://127.0.0.1:8000`.
-
-### 2. Run the Frontend (Vue.js)
-
-Open a new terminal, navigate to the `frontend` directory, and install the JavaScript dependencies:
-
-```bash
-cd frontend
-npm install
-```
-
-Start the Vue.js development server:
-
-```bash
-npm run dev
-```
-
-The frontend will run on `http://localhost:3001`. Open this URL in your browser to access the application.
+- Backend: Laravel
+- Frontend: Vue.js (Vite, Tailwindcss)
+- Web Server: NGINX
+- Database: SQLite
+- Containerization: Docker / Docker Compose
+- PHP 8.5
