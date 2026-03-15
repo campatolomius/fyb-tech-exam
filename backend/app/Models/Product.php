@@ -24,7 +24,17 @@ class Product extends Model
         return $this->belongsTo(User::class);
     }
 
+    public function reviews()
+    {
+        return $this->hasMany(ProductReview::class);
+    }
+
     public function getHumanizeDatetimeAttribute(){
         return $this->created_at ? $this->created_at->diffForHumans() : null;
+    }
+
+    public function averageRating()
+    {
+        return $this->reviews()->avg('rating');
     }
 }

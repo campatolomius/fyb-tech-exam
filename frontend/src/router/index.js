@@ -23,8 +23,7 @@ const router = createRouter({
         {
             path: '/forums',
             name: 'forums',
-            component: ForumView,
-            meta: { requiresAuth: true }
+            component: ForumView
         },
         {
             path: '/login',
