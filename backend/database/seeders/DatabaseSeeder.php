@@ -12,8 +12,8 @@ use App\Models\ProductVariant;
 use App\Models\User;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Hash;
-use Pest\Support\Str;
 
 class DatabaseSeeder extends Seeder
 {
@@ -34,7 +34,22 @@ class DatabaseSeeder extends Seeder
 
         User::factory()->count(5)->create();
 
-        Category::factory()->count(20)->create();
+        $categories = ['Electronics', 'Fashion', 'Home & Living', 'Beauty', 'Sports', 'Gadgets'];
+
+        $mapCategories = array_map(function ($category, $index) {
+            $ctr = $index + 2;
+
+            return [
+                'name' => $category,
+                'slug' => Str::slug($category),
+                'path' => Str::slug($category),
+                'level' => $ctr,
+                'is_active' => 1,
+                'sort_order' => $ctr,
+            ];
+        }, $categories, array_keys($categories));
+
+        Category::insert($mapCategories);
 
         Product::factory()->hasReviews(5)->count(20)->create();
 
