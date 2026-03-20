@@ -2,54 +2,26 @@
 
 namespace Database\Seeders;
 
-use App\Models\Category;
 use App\Models\Forum;
 use App\Models\ForumsComment;
 use App\Models\Inventory;
 use App\Models\Product;
 use App\Models\ProductReview;
 use App\Models\ProductVariant;
-use App\Models\User;
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Str;
-use Illuminate\Support\Facades\Hash;
 
 class DatabaseSeeder extends Seeder
 {
-    use WithoutModelEvents;
-
     /**
      * Seed the application's database.
      */
     public function run(): void
     {
-        User::factory()->create([
-            'name' => 'Cyrus Manatad',
-            'email' => 'cyrusmanatad@bentadoor.com',
-            'email_verified_at' => now(),
-            'password' => Hash::make('Password@1234'),
-            'remember_token' => Str::random(10),
+        $this->call([
+            PermissionsSeeder::class,
+            CategorySeeder::class,
         ]);
-
-        User::factory()->count(5)->create();
-
-        $categories = ['Electronics', 'Fashion', 'Home & Living', 'Beauty', 'Sports', 'Gadgets'];
-
-        $mapCategories = array_map(function ($category, $index) {
-            $ctr = $index + 1;
-
-            return [
-                'name' => $category,
-                'slug' => Str::slug($category),
-                'path' => Str::slug($category),
-                'level' => $ctr,
-                'is_active' => 1,
-                'sort_order' => $ctr,
-            ];
-        }, $categories, array_keys($categories));
-
-        Category::insert($mapCategories);
 
         Product::factory()->hasReviews(5)->count(20)->create();
 
